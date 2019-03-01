@@ -1,0 +1,30 @@
+{% extends 'admin/change_list.html' %}
+
+{% block object-tools %}
+    <div>
+         <form action="/parser/marks/" method="post">
+             {% csrf_token %}
+             <button type="submit">Pars marks</button>
+          </form>
+        <form action="/parser/models/" method="post">
+            {% csrf_token %}
+            <button type="submit">Pars models</button>
+        </form>
+        <form action="/parser/types/" method="post">
+            {% csrf_token %}
+            <button type="submit">Pars types</button>
+        </form>
+        <form action="/parser/subgroups/" method="post">
+            {% csrf_token %}
+            <button type="submit">Pars subgroups</button>
+        </form>
+        <form action="/parser/partsbysubgroups/" method="post">
+            {% csrf_token %}
+            <button type="submit">Pars parts</button>
+        </form>
+    </div>
+    <br />
+    {{ block.super }}
+{% endblock %}
+
+
