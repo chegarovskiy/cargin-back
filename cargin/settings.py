@@ -186,3 +186,8 @@ EMAIL_HOST = 'smtp.fozzy.lan'
 # EMAIL_HOST_PASSWORD = 'ipone3gs'
 EMAIL_PORT = 25
 
+
+
+import django_heroku
+django_heroku.settings(locals())
+
