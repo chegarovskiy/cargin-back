@@ -1,34 +1,28 @@
 from django.contrib import admin
 from django.http import HttpResponse
-
+from django.views import generic
 from API.models import Mark, Model, TypeCar, SubGroup, Part
-from API.helper.parser import ParserMarks
 
-# def parsmarks(modeladmin, request, queryset):
-#     try:
-#         marks = ParserMarks()
-#         marks.get_all_marks_from_site()
-#         marks.add_marks_to_db()
-#         return HttpResponse(content=None, status=201)
-#     except:
-#         pass
-#
-# # class Parser(admin.ModelAdmin):
-# #
-# #     actions = [parsmarks]
+
+
 
 
 class MarkModelAdmin(admin.ModelAdmin):
 
+    fields = ('name', 'referred_id')
+    list_display = ('name', 'referred_id')
+
+    change_list_template = 'admin/change_list.html'
     class Meta:
         model = Mark
 
-        pass
 
-    pass
+
+
 
 
 admin.site.register(Mark, MarkModelAdmin)
+
 
 
 
@@ -43,6 +37,7 @@ class ModelModelAdmin(admin.ModelAdmin):
 
     class Meta:
         model = Model
+
 admin.site.register(Model, ModelModelAdmin)
 
 

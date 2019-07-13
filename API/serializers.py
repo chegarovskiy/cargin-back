@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Mark, Model, TypeCar, SubGroup, Part, Email
+from .models import Mark, Model, TypeCar, SubGroup, Part, Email, PartNumbersWithOutDuplicates, PartDescription
 
 
 class MarkShortSerializer(serializers.HyperlinkedModelSerializer):
@@ -48,6 +48,39 @@ class PartShortSerealizer(serializers.HyperlinkedModelSerializer):
 class EmailShortSerealizer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Email
+
+
+
+
+
+
+class PartNumbersWithOutDuplicatesShortSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = PartNumbersWithOutDuplicates
+        fields = ('part_number',)
+
+        pass
+    pass
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -114,6 +147,7 @@ class PartDetailsSerealizer(serializers.HyperlinkedModelSerializer):
     pass
 
 class EmailDetailsSerializer(serializers.HyperlinkedModelSerializer):
+
     emails = EmailShortSerealizer(many=True)
 
     class Meta:
@@ -123,6 +157,15 @@ class EmailDetailsSerializer(serializers.HyperlinkedModelSerializer):
     pass
 
 
+
+class PartNumbersWithOutDuplicatesDetailsSerealizer(serializers.HyperlinkedModelSerializer):
+
+    class Meta:
+        model = PartNumbersWithOutDuplicates
+        fields = ('part_number',)
+
+        pass
+    pass
 
 
 

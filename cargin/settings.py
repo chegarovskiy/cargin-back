@@ -57,12 +57,13 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'cargin.urls'
-
-CORS_ORIGIN_WHITELIST = (
-    'google.com',
-    'localhost:3000',
-    '10.13.16.174:3000'
-)
+CORS_ORIGIN_ALLOW_ALL = True
+# CORS_ORIGIN_WHITELIST = (
+#     'google.com',
+#     'localhost:3000',
+#     '10.13.16.174:3000',
+#     '127.0.0.1'
+# )
 
 TEMPLATES = [
     {
@@ -104,7 +105,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'parts',
         'USER': 'root',
-        'PASSWORD': 'root',
+        'PASSWORD': 'vlad',
         'HOST': '',
         'PORT': '3306',
     }

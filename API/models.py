@@ -103,18 +103,39 @@ class Part(models.Model):
 
 
 
+class PartNumbersWithOutDuplicates(models.Model):
+    part_number = models.CharField(max_length=30, default='')
+
+    def __str__(self):
+        return self.part_number
+
+class Imege(models.Model):
+    part_number = models.CharField(max_length=30, default='')
+    name_image = models.CharField(max_length=50, default='')
+    tab_image = models.CharField(max_length=50, default='')
+
+    def __str__(self):
+        return self.part_number
+
+
+
 class PartDescription(models.Model):
     number = models.CharField(max_length=30, default='')
     prise = models.CharField(max_length=10, default='')
     retail = models.CharField(max_length=10, default='')
     brend = models.CharField(max_length=50, default='')
     name = models.CharField(max_length=100, default='')
-    description = models.CharField(max_length=500, default='')
+    description = models.CharField(max_length=400, default='')
+    info = models.CharField(max_length=500, default='')
 
-
+    vinnitsa = models.CharField(max_length=10, default='')
+    kiyivone = models.CharField(max_length=10, default='')
+    kiyivtwo = models.CharField(max_length=10, default='')
+    khmelnitskiy = models.CharField(max_length=10, default='')
+    zhitomir = models.CharField(max_length=10, default='')
 
     def __str__(self):
-        return self.name
+        return self.number
 
 
 class CrosesByString(models.Model):
@@ -123,6 +144,8 @@ class CrosesByString(models.Model):
 
     def __str__(self):
         return self.name
+
+
 
 
 class Email(models.Model):

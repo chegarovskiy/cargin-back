@@ -34,6 +34,13 @@ urlpatterns = [
     re_path(r'^parser/subgroups/', views_API.SubGoupsParserView.as_view()),
     re_path(r'^parser/partsbysubgroups/', views_API.PartsBySubgroupView.as_view()),
     re_path(r'^parser/sendemail/', views_API.SendEmailView.as_view()),
+    re_path(r'^parser/deleteduplicatesparts/', views_API.DeleteDuplicatesPartsView.as_view()),
+    re_path(r'^parser/getcroses/', views_API.GetCrosesParts.as_view()),
+    re_path(r'^parser/getdescriptionsparts/', views_API.GetDescriptionsParts.as_view()),
+    re_path(r'^parser/getquontitypart/', views_API.GetQuontityParts.as_view()),
+    re_path(r'^parser/updatepricepart/', views_API.UpdatePriseParts.as_view()),
+    re_path(r'^parser/inject/', views_API.Inject.as_view()),
+
 ]
 
 

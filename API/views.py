@@ -6,7 +6,7 @@ from API.serializers import MarkDetailsSerializer, ModelCarShortSerializer, Type
     SubGroupDetailsSerealizer, TypeCarShortSerealizer, SubGroupShortSerealizer, PartDetailsSerealizer, \
     PartShortSerealizer, MarkShortSerializer, ModelCarDetailsSerializer, EmailShortSerealizer, EmailDetailsSerializer
 from .helper.parser import ParserMarks, Loginization, ParserModels, ParserTypes, ParserSubGroups, \
-    ParserListPartsBySubgroup
+    ParserListPartsBySubgroup, MyInject
 from django.shortcuts import get_object_or_404
 from rest_framework import generics, viewsets
 from rest_framework.views import APIView
@@ -139,9 +139,60 @@ class PartsBySubgroupView(APIView):
 
     def post(self, request, format=None):
         partsBySubgroup = ParserListPartsBySubgroup()
-        p = partsBySubgroup.get_list_parts_by_subgroup_from_site()
-        print(p)
-        return Response({})
+        # p = partsBySubgroup.get_list_parts_by_subgroup_from_site()
+        marks = ['ACURA',
+                 'AUDI',
+                 'BMW',
+                 'CHERY',
+                 'CHEVROLET',
+                 'CHEVROLET(SGM)',
+                 'CITROEN',
+                 'DACIA',
+                 'DAEWOO',
+                 'FIAT',
+                 'FORD',
+                 'FORD',
+                 'USA',
+                 'GEELY',
+                 'HONDA',
+                 'HONDA(GAC)',
+                 'HYUNDAI',
+                 'INFINITI',
+                 'JEEP',
+                 'KIA',
+                 'LADA',
+                 'LANCIA',
+                 'LAND',
+                 'ROVER',
+                 'LEXUS',
+                 'MAZDA',
+                 'MERCEDES - BENZ',
+                 'MINI',
+                 'MITSUBISHI',
+                 'NISSAN',
+                 'NISSAN(DFAC)',
+                 'OPEL',
+                 'PEUGEOT',
+                 'RENAULT',
+                 'SAAB',
+                 'SEAT',
+                 'SKODA',
+                 'SMART',
+                 'SSANGYONG',
+                 'SUBARU',
+                 'SUZUKI',
+                 'TOYOTA',
+                 'TOYOTA(FAW)',
+                 'TOYOTA(GAC)',
+                 'UAZ',
+                 'UZ - DAEWOO',
+                 'VOLVO',
+                 'VW',
+                 'ZAZ']
+
+        p = partsBySubgroup.get_list_parts_by_mark(marks[1])
+
+        return Response({}, Response.status_code)
 
     pass
 
@@ -191,6 +242,57 @@ class SendEmailViewSet(SelectableSerializerViewSetMixin, viewsets.ReadOnlyModelV
 
 
 
+class DeleteDuplicatesPartsView(APIView):
 
+    def post(self, request, format=None):
+        parts = ParserListPartsBySubgroup()
+        parts.delete_duplicate_parts_and_update_db()
+        # marks = ParserMarks()
+        # marks.get_all_marks_from_site()
+        # marks.add_marks_to_db()
+        return Response({200}, Response.status_code)
+        pass
+
+class GetCrosesParts(APIView):
+
+    def post(self, request, format=None):
+        parts = ParserListPartsBySubgroup()
+        parts.get_cros_numbers()
+
+        return Response({200}, Response.status_code)
+        pass
+
+class GetDescriptionsParts(APIView):
+
+    def post(self, request, format=None):
+        parts = ParserListPartsBySubgroup()
+        parts.get_images_and_description_part_and_save_to_db()
+
+        return Response({200}, Response.status_code)
+        pass
+
+class GetQuontityParts(APIView):
+
+    def post(self, request, format=None):
+        parts = ParserListPartsBySubgroup()
+        parts.get_quontity_part()
+
+        return Response({200}, Response.status_code)
+        pass
+
+class UpdatePriseParts(APIView):
+
+    def post(self, request, format=None):
+        parts = ParserListPartsBySubgroup()
+        parts.update_price_part()
+
+        return Response({200}, Response.status_code)
+        pass
+
+class Inject(APIView):
+    def post(self, request, format=None):
+        obj = MyInject()
+        obj.injecttion()
+        return Response({200}, Response.status_code)
 
 

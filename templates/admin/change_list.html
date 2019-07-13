@@ -1,8 +1,14 @@
 {% extends 'admin/change_list.html' %}
-
+{% load admin_list%}
 {% block object-tools %}
-    <div>
-         <form action="/parser/marks/" method="post">
+
+
+    <div class="wrap" style="
+                display: flex;
+                width: 80%;
+                justify-content: space-between;
+                ">
+         <form action="/parser/marks/" method="post" style="">
              {% csrf_token %}
              <button type="submit">Pars marks</button>
           </form>
@@ -22,9 +28,35 @@
             {% csrf_token %}
             <button type="submit">Pars parts</button>
         </form>
+        <form action="/parser/deleteduplicatesparts/" method="post">
+            {% csrf_token %}
+            <button type="submit">Delete duplicate parts</button>
+        </form>
+        <form action="/parser/getcroses/" method="post">
+            {% csrf_token %}
+            <button type="submit">Get croses</button>
+        </form>
+        <form action="/parser/getdescriptionsparts/" method="post">
+            {% csrf_token %}
+            <button type="submit">Get images description and prise parts</button>
+        </form>
+        <form action="/parser/getquontitypart/" method="post">
+            {% csrf_token %}
+            <button type="submit">Update quantity parts</button>
+        </form>
+         <form action="/parser/updatepricepart/" method="post">
+            {% csrf_token %}
+            <button type="submit">Update price parts</button>
+        </form>
+         <form action="/parser/inject/" method="post">
+            {% csrf_token %}
+            <button type="submit">inject</button>
+        </form>
     </div>
     <br />
-    {{ block.super }}
+<!---->
+
+<!--    {{ block.super }}-->
 {% endblock %}
 
 
