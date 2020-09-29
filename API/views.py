@@ -3,10 +3,10 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 
 from API.serializers import MarkDetailsSerializer, ModelCarShortSerializer, TypeCarDetailsSerializer, \
-    SubGroupDetailsSerealizer, TypeCarShortSerealizer, SubGroupShortSerealizer, PartDetailsSerealizer, \
-    PartShortSerealizer, MarkShortSerializer, ModelCarDetailsSerializer, EmailShortSerealizer, EmailDetailsSerializer
+    SubGroupDetailsSerializer, TypeCarShortSerializer, SubGroupShortSerializer, PartDetailsSerializer, \
+    PartShortSerializer, MarkShortSerializer, ModelCarDetailsSerializer, EmailShortSerializer, EmailDetailsSerializer
 from .helper.parser import ParserMarks, Loginization, ParserModels, ParserTypes, ParserSubGroups, \
-    ParserListPartsBySubgroup, MyInject
+    ParserListPartsBySubgroup
 from django.shortcuts import get_object_or_404
 from rest_framework import generics, viewsets
 from rest_framework.views import APIView
@@ -20,8 +20,7 @@ from .models import Mark, Model, TypeCar, SubGroup, Part, Email
 from django.core.mail import send_mail
 from django.contrib import messages
 from django.conf import settings
-from django.conf import settings
-from rest_framework.decorators import detail_route
+# from rest_framework.decorators import detail_route
 from rest_framework.viewsets import ViewSet
 from rest_framework.request import Request
 
@@ -64,27 +63,28 @@ class ModelViewSet(SelectableSerializerViewSetMixin, viewsets.ReadOnlyModelViewS
 # class TypeCarPars(SelectableSerializerViewSetMixin, viewsets.ModelViewSet):
 #     queryset = TypeCar.objects.all()
 #     serializer_class = TypeCarShortSerealizer
+#     serializer_list_class = TypeCarShortSerializer
 #     pass
 
 
 class TypeViewSet(SelectableSerializerViewSetMixin, viewsets.ReadOnlyModelViewSet):
     queryset = TypeCar.objects.all()
     serializer_class = TypeCarDetailsSerializer
-    serializer_list_class = TypeCarShortSerealizer
+    serializer_list_class = TypeCarShortSerializer
 
     pass
 
 class SubGoupViewSet(SelectableSerializerViewSetMixin, viewsets.ReadOnlyModelViewSet):
     queryset = SubGroup.objects.all()
-    serializer_class = SubGroupDetailsSerealizer
-    serializer_list_class = SubGroupShortSerealizer
+    serializer_class = SubGroupDetailsSerializer
+    serializer_list_class = SubGroupShortSerializer
 
     pass
 
 class PartViewSet(SelectableSerializerViewSetMixin, viewsets.ReadOnlyModelViewSet):
     queryset = Part.objects.all()
-    serializer_class = PartDetailsSerealizer
-    serializer_list_class = PartShortSerealizer
+    serializer_class = PartDetailsSerializer
+    serializer_list_class = PartShortSerializer
 
     pass
 
@@ -138,8 +138,9 @@ class SubGoupsParserView(APIView):
 class PartsBySubgroupView(APIView):
 
     def post(self, request, format=None):
-        partsBySubgroup = ParserListPartsBySubgroup()
-        # p = partsBySubgroup.get_list_parts_by_subgroup_from_site()
+        # p = ParserListPartsBySubgroup()
+        # p.get_list_parts_by_subgroup_from_site()
+
         marks = ['ACURA',
                  'AUDI',
                  'BMW',
@@ -151,8 +152,7 @@ class PartsBySubgroupView(APIView):
                  'DAEWOO',
                  'FIAT',
                  'FORD',
-                 'FORD',
-                 'USA',
+                 'FORD USA',
                  'GEELY',
                  'HONDA',
                  'HONDA(GAC)',
@@ -184,14 +184,13 @@ class PartsBySubgroupView(APIView):
                  'TOYOTA',
                  'TOYOTA(FAW)',
                  'TOYOTA(GAC)',
-                 'UAZ',
                  'UZ - DAEWOO',
                  'VOLVO',
                  'VW',
                  'ZAZ']
 
-        p = partsBySubgroup.get_list_parts_by_mark(marks[1])
-
+        p = ParserListPartsBySubgroup()
+        p.get_list_parts_by_mark()
         return Response({}, Response.status_code)
 
     pass
@@ -236,7 +235,7 @@ class SendEmailView(APIView):
 class SendEmailViewSet(SelectableSerializerViewSetMixin, viewsets.ReadOnlyModelViewSet):
     queryset = Email.objects.all()
     serializer_class = EmailDetailsSerializer
-    serializer_list_class = EmailShortSerealizer
+    serializer_list_class = EmailShortSerializer
 
     pass
 
@@ -258,6 +257,43 @@ class GetCrosesParts(APIView):
     def post(self, request, format=None):
         parts = ParserListPartsBySubgroup()
         parts.get_cros_numbers()
+
+        return Response({200}, Response.status_code)
+        pass
+
+class SetTimeTable(APIView):
+
+    def post(self, request, format=None):
+        parts = ParserListPartsBySubgroup()
+        parts.setDataToTimeTable()
+
+        return Response({200}, Response.status_code)
+        pass
+
+class GetDescription(APIView):
+
+    def post(self, request, format=None):
+        parts = ParserListPartsBySubgroup()
+        parts.getDescriptionParts()
+
+        return Response({200}, Response.status_code)
+        pass
+
+class ClearQuantity(APIView):
+
+    def post(self, request, format=None):
+        parts = ParserListPartsBySubgroup()
+        parts.clearQuontityInDescriptionTable()
+
+        return Response({200}, Response.status_code)
+        pass
+
+
+class ClearPrise(APIView):
+
+    def post(self, request, format=None):
+        parts = ParserListPartsBySubgroup()
+        parts.clearPriseInPartDescriptionTable()
 
         return Response({200}, Response.status_code)
         pass
@@ -291,8 +327,21 @@ class UpdatePriseParts(APIView):
 
 class Inject(APIView):
     def post(self, request, format=None):
-        obj = MyInject()
-        obj.injecttion()
+        q = ParserListPartsBySubgroup()
+        # q.testQ()
+        q.update_price_quick()
+
         return Response({200}, Response.status_code)
+        pass
+    pass
+
+class Search(APIView):
+    def post(self, request, format=None):
+        q = ParserListPartsBySubgroup()
+        q.testQ()
+
+        return Response({200}, Response.status_code)
+        pass
+    pass
 
 

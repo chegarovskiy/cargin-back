@@ -36,9 +36,25 @@
             {% csrf_token %}
             <button type="submit">Get croses</button>
         </form>
+        <form action="/parser/settimetable/" method="post">
+            {% csrf_token %}
+            <button type="submit">Set Time Table</button>
+        </form>
+        <form action="/parser/getdescription/" method="post">
+            {% csrf_token %}
+            <button type="submit">Get Description</button>
+        </form>
+        <form action="/parser/clearprise/" method="post">
+            {% csrf_token %}
+            <button type="submit">Clear prise</button>
+        </form>
         <form action="/parser/getdescriptionsparts/" method="post">
             {% csrf_token %}
             <button type="submit">Get images description and prise parts</button>
+        </form>
+        <form action="/parser/clearquantity/" method="post">
+            {% csrf_token %}
+            <button type="submit">Clear quantity</button>
         </form>
         <form action="/parser/getquontitypart/" method="post">
             {% csrf_token %}
@@ -50,7 +66,7 @@
         </form>
          <form action="/parser/inject/" method="post">
             {% csrf_token %}
-            <button type="submit">inject</button>
+            <button type="submit">test</button>
         </form>
     </div>
     <br />

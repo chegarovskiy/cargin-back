@@ -36,10 +36,16 @@ urlpatterns = [
     re_path(r'^parser/sendemail/', views_API.SendEmailView.as_view()),
     re_path(r'^parser/deleteduplicatesparts/', views_API.DeleteDuplicatesPartsView.as_view()),
     re_path(r'^parser/getcroses/', views_API.GetCrosesParts.as_view()),
+    re_path(r'^parser/settimetable/', views_API.SetTimeTable.as_view()),
+    re_path(r'^parser/getdescription/', views_API.GetDescription.as_view()),
+    re_path(r'^parser/clearprise/', views_API.ClearPrise.as_view()),
     re_path(r'^parser/getdescriptionsparts/', views_API.GetDescriptionsParts.as_view()),
+    re_path(r'^parser/clearquantity/', views_API.ClearQuantity.as_view()),
     re_path(r'^parser/getquontitypart/', views_API.GetQuontityParts.as_view()),
     re_path(r'^parser/updatepricepart/', views_API.UpdatePriseParts.as_view()),
     re_path(r'^parser/inject/', views_API.Inject.as_view()),
+    re_path(r'^parser/search/', views_API.Search.as_view()),
+
 
 ]
 

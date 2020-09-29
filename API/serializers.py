@@ -20,7 +20,7 @@ class ModelCarShortSerializer(serializers.HyperlinkedModelSerializer):
     pass
 
 
-class TypeCarShortSerealizer(serializers.HyperlinkedModelSerializer):
+class TypeCarShortSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = TypeCar
         fields = ('url', 'name', 'vol', 'terms', 'body_type', 'cyl', 'drive', 'eng', 'fuel', 'hp', 'kw', 'referred_id')
@@ -29,15 +29,15 @@ class TypeCarShortSerealizer(serializers.HyperlinkedModelSerializer):
     pass
 
 
-class SubGroupShortSerealizer(serializers.HyperlinkedModelSerializer):
+class SubGroupShortSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = SubGroup
-        fields = ('url', 'name_subgroup', 'code_subgroup', 'name_group', 'code_group', 'referred_id')
+        fields = ('url', 'name_subgroup', 'code_subgroup', 'name_group', 'code_group', 'referred_id', 'typecar_id')
 
         pass
     pass
 
-class PartShortSerealizer(serializers.HyperlinkedModelSerializer):
+class PartShortSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Part
         fields = ('url', 'part_number', 'prise', 'retail', 'brend', 'name', 'description', 'referred_id')
@@ -45,7 +45,7 @@ class PartShortSerealizer(serializers.HyperlinkedModelSerializer):
         pass
     pass
 
-class EmailShortSerealizer(serializers.HyperlinkedModelSerializer):
+class EmailShortSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Email
 
@@ -101,7 +101,7 @@ class MarkDetailsSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class ModelCarDetailsSerializer(serializers.HyperlinkedModelSerializer):
-    types = TypeCarShortSerealizer(many=True)
+    types = TypeCarShortSerializer(many=True)
     mark = MarkShortSerializer()
 
     class Meta:
@@ -112,7 +112,7 @@ class ModelCarDetailsSerializer(serializers.HyperlinkedModelSerializer):
     pass
 
 class TypeCarDetailsSerializer(serializers.HyperlinkedModelSerializer):
-    subgroups = SubGroupShortSerealizer(many=True)
+    subgroups = SubGroupShortSerializer(many=True)
     model = ModelCarShortSerializer()
 
     class Meta:
@@ -122,22 +122,22 @@ class TypeCarDetailsSerializer(serializers.HyperlinkedModelSerializer):
         pass
     pass
 
-class SubGroupDetailsSerealizer(serializers.HyperlinkedModelSerializer):
-    parts = PartShortSerealizer(many=True)
-    typecar = TypeCarShortSerealizer()
+class SubGroupDetailsSerializer(serializers.HyperlinkedModelSerializer):
+    parts = PartShortSerializer(many=True)
+    typecar = TypeCarShortSerializer()
 
     class Meta:
         model = SubGroup
-        fields = ('url', 'referred_id', 'name_subgroup', 'code_subgroup', 'name_group', 'code_group', 'typecar','parts')
+        fields = ('url', 'referred_id', 'name_subgroup', 'code_subgroup', 'name_group', 'code_group', 'typecar', 'parts')
 
         pass
     pass
 
 
 
-class PartDetailsSerealizer(serializers.HyperlinkedModelSerializer):
+class PartDetailsSerializer(serializers.HyperlinkedModelSerializer):
 
-    subgoups = SubGroupShortSerealizer()
+    subgoups = SubGroupShortSerializer()
 
     class Meta:
         model = Part
@@ -148,7 +148,7 @@ class PartDetailsSerealizer(serializers.HyperlinkedModelSerializer):
 
 class EmailDetailsSerializer(serializers.HyperlinkedModelSerializer):
 
-    emails = EmailShortSerealizer(many=True)
+    emails = EmailShortSerializer(many=True)
 
     class Meta:
         model = Email
@@ -158,7 +158,7 @@ class EmailDetailsSerializer(serializers.HyperlinkedModelSerializer):
 
 
 
-class PartNumbersWithOutDuplicatesDetailsSerealizer(serializers.HyperlinkedModelSerializer):
+class PartNumbersWithOutDuplicatesDetailsSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = PartNumbersWithOutDuplicates

@@ -67,12 +67,12 @@ class TypeCar(models.Model):
     # pass
 
 class SubGroup(models.Model):
-    referred_id = models.CharField(max_length=100, null=False, primary_key=True)
+    referred_id = models.CharField(db_index=True, max_length=100, null=False, primary_key=True)
 
     name_subgroup = models.CharField(max_length=150, default='')
     code_subgroup = models.CharField(max_length=100, default='')
     name_group = models.CharField(max_length=150, default='')
-    code_group = models.CharField(max_length=100, default='')
+    code_group = models.CharField(max_length=105, default='')
 
     typecar = models.ForeignKey(TypeCar, on_delete=models.CASCADE, null=True, related_name='subgroups')
 
@@ -87,14 +87,16 @@ class SubGroup(models.Model):
 
 class Part(models.Model):
     # type_id = models.IntegerField(default=None)
-    part_number = models.CharField(max_length=30, default='')
+    referred_id = models.CharField(max_length=100, null=False, primary_key=True)
+
+    part_number = models.CharField(db_index=True, max_length=30, default='')
     prise = models.CharField(max_length=10, default='')
     retail = models.CharField(max_length=10, default='')
     brend = models.CharField(max_length=50, default='')
     name = models.CharField(max_length=100, default='')
     description = models.CharField(max_length=500, default='')
 
-    referred_id = models.CharField(max_length=100, null=False, primary_key=True)
+
 
     subgroup = models.ForeignKey(SubGroup, on_delete=models.CASCADE, null=True, related_name='parts')
 
@@ -104,7 +106,7 @@ class Part(models.Model):
 
 
 class PartNumbersWithOutDuplicates(models.Model):
-    part_number = models.CharField(max_length=30, default='')
+    part_number = models.CharField(db_index=True, max_length=30, default='')
 
     def __str__(self):
         return self.part_number
@@ -120,7 +122,7 @@ class Imege(models.Model):
 
 
 class PartDescription(models.Model):
-    number = models.CharField(max_length=30, default='')
+    number = models.CharField(db_index=True, max_length=30, default='')
     prise = models.CharField(max_length=10, default='')
     retail = models.CharField(max_length=10, default='')
     brend = models.CharField(max_length=50, default='')
@@ -139,13 +141,19 @@ class PartDescription(models.Model):
 
 
 class CrosesByString(models.Model):
-    original_number = models.CharField(max_length=30, default='')
-    cros_number = models.CharField(max_length=30, default='')
+    original_number = models.CharField(db_index=True, max_length=30, default='')
+    cros_number = models.CharField(db_index=True, max_length=30, default='')
 
     def __str__(self):
-        return self.name
+        return self.cros_number
 
+# таблица для хранения временных данных для обновления цен на запчасти
+class TimeData(models.Model):
+    n = models.CharField(db_index=True, max_length=30, default='')
+    k = models.CharField(db_index=True, max_length=30, default='')
 
+    def __str__(self):
+        return self.n
 
 
 class Email(models.Model):

@@ -100,14 +100,26 @@ WSGI_APPLICATION = 'cargin.wsgi.application'
 #         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
 #     }
 # }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'parts',
+#         'USER': 'root',
+#         'PASSWORD': 'vlad',
+#         'HOST': '',
+#         'PORT': '3306',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'parts',
-        'USER': 'root',
+        'USER': 'postgres',
         'PASSWORD': 'vlad',
         'HOST': '',
-        'PORT': '3306',
+        'PORT': '5432',
     }
 }
 
@@ -186,4 +198,26 @@ EMAIL_HOST = 'smtp.fozzy.lan'
 # EMAIL_HOST_USER = 'chegarovskiy.vlad@gmail.com'
 # EMAIL_HOST_PASSWORD = 'ipone3gs'
 EMAIL_PORT = 25
+
+# LOGGING = {
+#     'version': 1,
+#     'filters': {
+#         'require_debug_true': {
+#             '()': 'django.utils.log.RequireDebugTrue',
+#         }
+#     },
+#     'handlers': {
+#         'console': {
+#             'level': 'DEBUG',
+#             'filters': ['require_debug_true'],
+#             'class': 'logging.StreamHandler',
+#         }
+#     },
+#     'loggers': {
+#         'django.db.backends': {
+#             'level': 'DEBUG',
+#             'handlers': ['console'],
+#         }
+#     }
+# }
 
